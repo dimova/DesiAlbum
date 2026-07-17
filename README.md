@@ -1,6 +1,6 @@
 # DesiAlbum
 
-[![Deploy static site to GitHub Pages](https://github.com/dimova/DesiAlbum/actions/workflows/deploy-pages.yml/badge.svg?branch=main)](https://github.com/dimova/DesiAlbum/actions/workflows/deploy-pages.yml)
+[![GitHub Pages Deploy](https://img.shields.io/github/actions/workflow/status/dimova/DesiAlbum/deploy-pages.yml?branch=main&label=GitHub%20Pages%20Deploy)](https://github.com/dimova/DesiAlbum/actions/workflows/deploy-pages.yml)
 
 Simple photo gallery hosted on GitHub Pages.
 
