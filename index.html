@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>State Management - Realistic Example</title>
+	<style>
+        body {
+            margin: 0;
+            overflow: auto;
+        }
+
+        .gallery {
+            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			width: 96%;
+			margin: 0 auto;
+			padding: 16px 0;
+        }
+		.thumbs {
+			position: sticky;
+			top: 0;
+			background: #fff;
+			padding: 8px 0;
+			z-index: 1;
+		}
+		.largeImageViewport {
+			width: 94%;
+			height: 70vh;
+			overflow: hidden;
+			border: 1px solid #ddd;
+			margin: 14px 0;
+			background: #f8f8f8;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+		.largeImage {
+			display: block;
+			max-width: 100%;
+			max-height: 100%;
+			width: auto;
+			height: auto;
+			min-width: 0;
+			min-height: 0;
+			object-fit: contain;
+		}
+		.smallImage {
+			width: 10%; 
+			height: 72px;
+			object-fit: cover;
+			margin-right: 2%;
+			cursor: pointer;
+			border: 2px solid transparent;
+		}
+		.smallImage.active {
+			border-color: #444;
+		}
+	</style>
+</head>
+<body>
+
+	<div id="root"></div>
+
+	<script src="https://unpkg.com/@babel/standalone/babel.js"></script>
+
+	<script type="importmap">
+	{
+		"imports": {
+			"react": "https://esm.sh/react",
+			"react-dom/client": "https://esm.sh/react-dom/client"
+		}
+	}
+	</script>
+	
+	<script data-type="module" type="text/babel">
+		import React from "react"
+		import { createRoot } from "react-dom/client"
+
+		function Gallery({baseAddress, urls}) {
+
+			const [selectedUrl, setSelectedUrl] = React.useState(undefined)
+			
+			const mainContent = selectedUrl
+				? <img src={`${baseAddress}/${selectedUrl}`} className='largeImage' />
+				: <h2>No image selected</h2>
+					
+			return (
+				<div className="gallery">
+					<div className='thumbs'>
+						{urls.map((url, i) =>
+							<img 
+								key={i}
+								src={`${baseAddress}/${url}`}
+								className={`smallImage ${selectedUrl === url ? 'active' : ''}`}
+								onClick={() => setSelectedUrl(url)}
+							/>
+						)}
+					</div>
+					<div className='largeImageViewport'>{mainContent}</div>
+				</div>
+			)
+		}
+		
+		const urls = [
+			'bansko.jpg', 
+			'bristol.jpg',
+			'buddy.jpg',
+			'guiness.jpg', 
+			'home.jpg',
+			'poker.jpg',
+			'selfie.jpg',
+			'soccer.jpg'
+		]
+		
+		const root = createRoot(document.getElementById('root'))
+
+		root.render(
+			<Gallery 
+				baseAddress="/images/" 
+				urls={urls} 
+			/>
+		)
+
+	</script>
+
+</body>
+</html>
